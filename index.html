@@ -525,6 +525,7 @@
       const combined = hash + "&" + search;
 
       const hasAuthCallback =
+        combined.includes("code=") ||
         combined.includes("access_token=") ||
         combined.includes("type=signup") ||
         combined.includes("type=email") ||
