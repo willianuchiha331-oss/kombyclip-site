@@ -3,304 +3,570 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KombyClip Studio — Cortes Virais com IA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>KombyClip Studio — Cortes Virais com IA para Windows</title>
+  <meta name="description" content="Transforme lives e vídeos longos em cortes virais 9:16 ou 16:9 com curadoria por IA, enquadramento automático de webcam + gameplay e legendas dinâmicas direto no seu PC." />
   <style>
     :root {
-      --bg: #09090B;
-      --surface: #121216;
-      --surface-2: #18181E;
-      --border: rgba(255, 255, 255, 0.09);
-      --text: #F4F4F5;
-      --muted: #A1A1AA;
-      --orange: #FF6A00;
-      --orange-hi: #FF7E22;
+      --bg: #0a0a0c;
+      --surface: #131317;
+      --surface-hover: #1a1a20;
+      --border: #26262e;
+      --text: #f4f4f6;
+      --muted: #a1a1aa;
+      --accent: #f97316;
+      --accent-hover: #ea580c;
+      --accent-soft: rgba(249, 115, 22, 0.14);
+      --green: #22c55e;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg);
-      background-image:
-        radial-gradient(ellipse 55% 38% at 15% 0%, rgba(255, 106, 0, 0.14), transparent 70%),
-        radial-gradient(ellipse 45% 40% at 90% 90%, rgba(255, 106, 0, 0.10), transparent 70%);
       color: var(--text);
-      line-height: 1.55;
-      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
     .container {
-      max-width: 1060px;
+      width: min(1120px, 92vw);
       margin: 0 auto;
-      padding: 0 20px;
     }
+
+    /* Header */
     header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(10, 10, 12, 0.88);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 18px 0;
-      backdrop-filter: blur(8px);
     }
+
     .nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      height: 72px;
     }
-    .logo {
+
+    .brand {
       display: flex;
       align-items: center;
-      gap: 11px;
-      font-size: 1.15rem;
+      gap: 12px;
       font-weight: 800;
+      font-size: 19px;
       letter-spacing: -0.02em;
-      text-decoration: none;
-      color: #FFF;
     }
-    .logo span { color: var(--orange); }
-    .logo-badge {
+
+    .brand-icon {
       width: 34px;
       height: 34px;
       border-radius: 9px;
-      background: linear-gradient(135deg, #FF7B00, #FF5200);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: linear-gradient(135deg, #fb923c, #ea580c);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 15px;
+      box-shadow: 0 4px 16px rgba(249, 115, 22, 0.35);
     }
-    .btn-primary {
+
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: linear-gradient(90deg, #FF5900, #FF7818);
-      color: #09090B;
-      font-weight: 700;
-      font-size: 0.95rem;
-      padding: 13px 24px;
-      border-radius: 11px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 6px 22px rgba(255, 106, 0, 0.28);
-      transition: transform 0.15s ease, filter 0.15s ease;
-    }
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.06);
-    }
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--surface-2);
-      color: var(--text);
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 11px 18px;
+      padding: 12px 22px;
       border-radius: 10px;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      transition: border-color 0.15s ease, background 0.15s ease;
+      font-weight: 700;
+      font-size: 15px;
+      transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
     }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 6px 24px rgba(249, 115, 22, 0.28);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
     .btn-secondary:hover {
-      border-color: rgba(255, 106, 0, 0.5);
-      background: #1F1F27;
+      background: var(--surface-hover);
+      border-color: #3f3f46;
     }
+
+    /* Hero */
     .hero {
-      padding: 64px 0 48px;
+      padding: 84px 0 64px;
       text-align: center;
     }
-    .pill {
+
+    .badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border);
       padding: 6px 14px;
       border-radius: 999px;
-      font-size: 0.8rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 13px;
       color: var(--muted);
-      margin-bottom: 18px;
+      margin-bottom: 24px;
     }
-    .dot {
-      width: 7px;
-      height: 7px;
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: #22C55E;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
     }
-    h1 {
-      font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+
+    .hero h1 {
+      font-size: clamp(34px, 5.5vw, 60px);
       font-weight: 800;
+      line-height: 1.1;
       letter-spacing: -0.03em;
-      line-height: 1.12;
-      max-width: 780px;
-      margin: 0 auto 16px;
+      max-width: 820px;
+      margin: 0 auto 20px;
     }
-    h1 span { color: var(--orange); }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
     .hero p {
+      font-size: clamp(16px, 2vw, 19px);
       color: var(--muted);
-      font-size: 1.05rem;
-      max-width: 620px;
-      margin: 0 auto 28px;
+      max-width: 680px;
+      margin: 0 auto 34px;
     }
+
     .hero-actions {
       display: flex;
-      gap: 12px;
-      justify-content: center;
       flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 18px;
     }
-    .meta-note {
-      margin-top: 14px;
-      font-size: 0.8rem;
+
+    .hero-note {
+      font-size: 13.5px;
       color: var(--muted);
     }
+
+    .install-tip {
+      max-width: 620px;
+      margin: 22px auto 0;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      color: #d4d4d8;
+    }
+
+    /* Features */
+    .features {
+      padding: 36px 0 76px;
+    }
+
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-      margin: 28px 0 56px;
+      gap: 22px;
     }
+
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px;
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.2s ease;
     }
-    .card.destaque {
-      border-color: rgba(255, 106, 0, 0.55);
-      background: linear-gradient(180deg, #161513 0%, var(--surface) 100%);
+
+    .card:hover {
+      border-color: #3f3f46;
     }
+
     .card h3 {
-      font-size: 1.05rem;
+      font-size: 19px;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .card p {
+      font-size: 14.5px;
+      color: var(--muted);
+    }
+
+    /* Pricing */
+    .pricing {
+      padding: 40px 0 96px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .plan-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .plan-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, rgba(249, 115, 22, 0.08) 0%, var(--surface) 100%);
+      box-shadow: 0 12px 36px rgba(249, 115, 22, 0.14);
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .plan-name {
+      font-size: 18px;
+      font-weight: 700;
       margin-bottom: 8px;
     }
-    .card p {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-    .price {
-      font-size: 1.8rem;
+
+    .plan-price {
+      font-size: 34px;
       font-weight: 800;
-      margin: 10px 0 4px;
       letter-spacing: -0.03em;
+      margin-bottom: 4px;
     }
-    .price span {
-      font-size: 0.85rem;
+
+    .plan-price span {
+      font-size: 14px;
       font-weight: 500;
       color: var(--muted);
     }
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-    .section-sub {
+
+    .plan-sub {
+      font-size: 13px;
       color: var(--muted);
-      font-size: 0.95rem;
       margin-bottom: 20px;
     }
-    .install-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 56px;
+
+    .plan-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 26px;
+      font-size: 14px;
+      color: #e4e4e7;
     }
-    .install-box ol {
-      padding-left: 20px;
-      color: var(--muted);
-      font-size: 0.92rem;
+
+    .plan-list li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 800;
+      margin-right: 8px;
     }
-    .install-box li { margin-bottom: 8px; }
-    .install-box strong { color: var(--text); }
+
+    /* Footer */
     footer {
       border-top: 1px solid var(--border);
-      padding: 24px 0;
+      padding: 32px 0;
       text-align: center;
+      font-size: 13.5px;
       color: var(--muted);
-      font-size: 0.82rem;
     }
   </style>
 </head>
 <body>
+
   <header>
     <div class="container nav">
-      <a class="logo" href="#">
-        <div class="logo-badge">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="#09090B">
-            <path d="M7 5.5L18.5 12L7 18.5V5.5Z"/>
-          </svg>
-        </div>
-        <span>Komby<span>Clip</span> Studio</span>
+      <a href="#" class="brand">
+        <span class="brand-icon">&#9654;</span>
+        <span>KombyClip Studio</span>
       </a>
-      <a class="btn-primary" href="#download">Baixar para Windows</a>
+      <a href="https://drive.google.com/uc?export=download&id=1vL057IP3XCHdo0LLUkl7les9zueAwISL" class="btn btn-primary" target="_blank" rel="noopener">
+        Baixar para Windows
+      </a>
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero" id="download">
-      <div class="pill"><span class="dot"></span> Versão 1.0.0 · Windows 10 / 11 (64-bit)</div>
-      <h1>Transforme lives e vídeos longos em <span>cortes virais</span></h1>
-      <p>
-        Curadoria inteligente, enquadramento automático de webcam + gameplay em 9:16 ou 16:9 e legendas dinâmicas direto no seu PC para YouTube, Twitch, Kick e arquivos locais.
-      </p>
-      <div class="hero-actions">
-        <a class="btn-primary" href="https://drive.google.com/file/d/1vL057IP3XCHdo0LLUkI7les9zueAwISL/view?usp=sharing" download="KombyClip_Studio_Setup.exe">
-          Baixar KombyClip Studio (.exe)
-        </a>
-        <a class="btn-secondary" href="#planos">Ver planos</a>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>Versão 1.0.0 &middot; Windows 10 / 11 (64-bit)</span>
+        </div>
+
+        <h1>Transforme lives e vídeos longos em <span>cortes virais</span></h1>
+
+        <p>
+          Curadoria inteligente, enquadramento automático de webcam + gameplay em 9:16 ou 16:9 e legendas dinâmicas direto no seu PC para YouTube, Twitch, Kick e arquivos locais.
+        </p>
+
+        <div class="hero-actions">
+          <a href="https://drive.google.com/uc?export=download&id=1vL057IP3XCHdo0LLUkl7les9zueAwISL" class="btn btn-primary" target="_blank" rel="noopener">
+            Baixar KombyClip Studio (.zip)
+          </a>
+          <a href="#planos" class="btn btn-secondary">
+            Ver planos
+          </a>
+        </div>
+
+        <p class="hero-note">
+          Inclui 3 cortes gratuitos por mês em 720p &middot; Upgrade para 1080p sem marca d'água via Pix ou Cartão
+        </p>
+
+        <div class="install-tip">
+          <strong>Como instalar:</strong> Baixe o arquivo <code>KombyClip_Studio_Setup.zip</code> (se o Google Drive exibir aviso de arquivo grande, clique em <em>Fazer o download mesmo assim</em>), extraia o instalador e execute-o no Windows.
+        </div>
       </div>
-      <p class="meta-note">Inclui 3 cortes gratuitos por mês em 720p · Upgrade para 1080p sem marca d'água via Pix ou Cartão</p>
     </section>
 
-    <section class="grid-3">
-      <div class="card">
-        <h3>Curadoria por IA</h3>
-        <p>Analisa lives da Kick, Twitch, YouTube ou vídeos locais e sugere os trechos com maior potencial de retenção e nota viral.</p>
-      </div>
-      <div class="card">
-        <h3>Estúdio 9:16 e 16:9</h3>
-        <p>Recorte de webcam com presets salvos, fundo com blur ou zoom centralizado, prévia em tempo real e legendas animadas.</p>
-      </div>
-      <div class="card">
-        <h3>Renderização Local Rápida</h3>
-        <p>Processa direto na sua máquina com FFmpeg integrado, salvando os cortes prontos na pasta de vídeos do Windows.</p>
-      </div>
-    </section>
-
-    <section id="planos">
-      <h2 class="section-title">Planos</h2>
-      <p class="section-sub">Comece grátis e assine o Pro dentro do próprio aplicativo quando quiser exportar em 1080p sem marca d'água.</p>
-      <div class="grid-3">
+    <section class="features">
+      <div class="container grid-3">
         <div class="card">
-          <h3>Mensal</h3>
-          <div class="price">R$ 24,90 <span>/ mês</span></div>
-          <p>30 dias de acesso · Cortes ilimitados em 1080p sem marca d'água.</p>
+          <h3>Curadoria por IA</h3>
+          <p>
+            Analisa lives da Kick, Twitch, YouTube ou vídeos locais e sugere os trechos com maior potencial de retenção, humor e nota viral.
+          </p>
         </div>
+
         <div class="card">
-          <h3>Trimestral</h3>
-          <div class="price">R$ 66,90 <span>/ 90 dias</span></div>
-          <p>Equivalente a R$ 22,30/mês · 10% de economia · 1080p sem marca d'água.</p>
+          <h3>Estúdio 9:16 e 16:9</h3>
+          <p>
+            Recorte de webcam com presets salvos, fundo com blur ou zoom centralizado, prévia em tempo real e legendas animadas.
+          </p>
         </div>
-        <div class="card destaque">
-          <h3>Anual</h3>
-          <div class="price">R$ 239,90 <span>/ ano</span></div>
-          <p>Equivalente a R$ 19,99/mês · 20% de economia · 1080p sem marca d'água.</p>
+
+        <div class="card">
+          <h3>Renderização Local Rápida</h3>
+          <p>
+            Processa direto na sua máquina com FFmpeg integrado, salvando os cortes prontos na pasta de vídeos do Windows.
+          </p>
         </div>
       </div>
     </section>
 
-    <section class="install-box">
-      <h2 class="section-title" style="font-size:1.15rem; margin-bottom:10px;">Como instalar no Windows</h2>
-      <ol>
-        <li>Baixe o arquivo <strong>KombyClip_Studio_Setup.exe</strong> e dê dois cliques para instalar.</li>
-        <li>Se o Windows SmartScreen exibir <em>"O Windows protegeu o computador"</em>, clique em <strong>Mais informações</strong> e depois em <strong>Executar assim mesmo</strong>.</li>
-        <li>Abra o <strong>KombyClip Studio</strong>, crie sua conta gratuita e comece a cortar.</li>
-      </ol>
+    <section id="planos" class="pricing">
+      <div class="container">
+        <div class="section-header">
+          <h2>Planos e Assinaturas</h2>
+          <p>Comece grátis e libere renderização ilimitada em Full HD 1080p sem marca d'água quando quiser.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <div class="plan-card">
+            <div>
+              <div class="plan-name">Gratuito</div>
+              <div class="plan-price">R$ 0 <span>/ mês</span></div>
+              <div class="plan-sub">Ideal para testar no seu PC</div>
+              <ul class="plan-list">
+                <li>3 cortes por mês</li>
+                <li>Exportação em 720p</li>
+                <li>Curadoria por IA</li>
+                <li>Estúdio 9:16 e 16:9</li>
+              </ul>
+            </div>
+            <a href="https://drive.google.com/uc?export=download&id=1vL057IP3XCHdo0LLUkl7les9zueAwISL" class="btn btn-secondary" target="_blank" rel="noopener">
+              Baixar Grátis
+            </a>
+          </div>
+
+          <div class="plan-card featured">
+            <span class="plan-badge">Mais escolhido</span>
+            <div>
+              <div class="plan-name">Pro Mensal</div>
+              <div class="plan-price">R$ 24,90 <span>/ 30 dias</span></div>
+              <div class="plan-sub">Ativação automática via Pix ou Cartão</div>
+              <ul class="plan-list">
+                <li>Cortes ilimitados</li>
+                <li>Exportação Full HD 1080p</li>
+                <li>Sem marca d'água</li>
+                <li>Legendas dinâmicas completas</li>
+              </ul>
+            </div>
+            <a href="https://drive.google.com/uc?export=download&id=1vL057IP3XCHdo0LLUkl7les9zueAwISL" class="btn btn-primary" target="_blank" rel="noopener">
+              Assinar pelo App
+            </a>
+          </div>
+
+          <div class="plan-card">
+            <div>
+              <div class="plan-name">Pro Trimestral</div>
+              <div class="plan-price">R$ 66,90 <span>/ 90 dias</span></div>
+              <div class="plan-sub">Equivalente a R$ 22,30/mês</div>
+              <ul class="plan-list">
+                <li>Cortes ilimitados</li>
+                <li>Exportação Full HD 1080p</li>
+                <li>Sem marca d'água</li>
+                <li>Economia de 10%</li>
+              </ul>
+            </div>
+            <a href="https://drive.google.com/uc?export=download&id=1vL057IP3XCHdo0LLUkl7les9zueAwISL" class="btn btn-secondary" target="_blank" rel="noopener">
+              Assinar pelo App
+            </a>
+          </div>
+
+          <div class="plan-card">
+            <div>
+              <div class="plan-name">Pro Anual</div>
+              <div class="plan-price">R$ 239,90 <span>/ 365 dias</span></div>
+              <div class="plan-sub">Equivalente a R$ 19,99/mês</div>
+              <ul class="plan-list">
+                <li>Cortes ilimitados</li>
+                <li>Exportação Full HD 1080p</li>
+                <li>Sem marca d'água</li>
+                <li>Maior economia (20% off)</li>
+              </ul>
+            </div>
+            <a href="https://drive.google.com/uc?export=download&id=1vL057IP3XCHdo0LLUkl7les9zueAwISL" class="btn btn-secondary" target="_blank" rel="noopener">
+              Assinar pelo App
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer>
-    <div class="container">KombyClip Studio · Crie. Edite. Compartilhe.</div>
+    <div class="container">
+      &copy; 2026 KombyClip Studio &middot; Todos os direitos reservados.
+    </div>
   </footer>
+
+  <!-- Banner de confirmação de e-mail do Supabase Auth -->
+  <div id="kc-email-banner" style="display:none; position:fixed; top:16px; left:50%; transform:translateX(-50%); z-index:9999; width:min(92vw, 640px); background:#18181b; color:#fafafa; border:1px solid #f97316; border-radius:12px; padding:14px 18px; box-shadow:0 12px 32px rgba(0,0,0,.55); font-family:system-ui,-apple-system,sans-serif;">
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+      <div>
+        <div id="kc-email-title" style="font-weight:700; font-size:15px; color:#fb923c; margin-bottom:4px;">
+          E-mail confirmado com sucesso!
+        </div>
+        <div id="kc-email-desc" style="font-size:13.5px; line-height:1.45; color:#e4e4e7;">
+          Sua conta no KombyClip Studio foi ativada. Agora você já pode voltar para o aplicativo no seu computador e fazer login.
+        </div>
+      </div>
+      <button id="kc-email-close" type="button" aria-label="Fechar aviso" style="background:transparent; border:none; color:#a1a1aa; font-size:20px; line-height:1; cursor:pointer; padding:2px 6px;">
+        &times;
+      </button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const hash = window.location.hash || "";
+      const search = window.location.search || "";
+      const combined = hash + "&" + search;
+
+      const hasAuthCallback =
+        combined.includes("access_token=") ||
+        combined.includes("type=signup") ||
+        combined.includes("type=email") ||
+        combined.includes("type=recovery") ||
+        combined.includes("error_description=");
+
+      if (!hasAuthCallback) return;
+
+      const banner = document.getElementById("kc-email-banner");
+      const titleEl = document.getElementById("kc-email-title");
+      const descEl = document.getElementById("kc-email-desc");
+      const closeBtn = document.getElementById("kc-email-close");
+
+      const params = new URLSearchParams(
+        (hash.startsWith("#") ? hash.slice(1) : "") +
+          (hash && search ? "&" : "") +
+          (search.startsWith("?") ? search.slice(1) : "")
+      );
+
+      const errDesc = params.get("error_description");
+      if (errDesc) {
+        titleEl.textContent = "Link de confirmação expirado ou inválido";
+        descEl.textContent =
+          decodeURIComponent(errDesc.replace(/\+/g, " ")) +
+          " — abra o KombyClip Studio e solicite um novo e-mail de confirmação se precisar.";
+      }
+
+      if (banner) {
+        banner.style.display = "block";
+      }
+
+      if (closeBtn && banner) {
+        closeBtn.addEventListener("click", function () {
+          banner.style.display = "none";
+        });
+      }
+
+      try {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      } catch (_) {}
+    })();
+  </script>
+
 </body>
 </html>
